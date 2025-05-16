@@ -15,7 +15,7 @@ fn main() {
         -1, -2, -3,
         -4, -5, -6,
     ];
-    println!("My array! Here it is: {:?}", my_arr);
+    println!("My array! Here it is: {my_arr:?}");
 
     let mut my_empty_vec = vec![1, 2, 3, 4, 5];
     // `resize` 会改变一个动态数组，而不是返回一个新的。
@@ -27,5 +27,5 @@ fn main() {
     let mut value_b = 66;
     // 使用 `mem::swap` 来正确地交换两个值。
     mem::swap(&mut value_a, &mut value_b);
-    println!("value a: {}; value b: {}", value_a, value_b);
+    println!("value a: {value_a}; value b: {value_b}");
 }
