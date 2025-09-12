@@ -2,13 +2,16 @@
 fn picky_eater(food: &str) -> &str {
     if food == "草莓" {
         "美味!"
+    } else if food == "土豆" {
+        "还行吧"
     } else {
-        1
+        "不吃"
     }
 }
 
 fn main() {
     // (可选)你可以选择性地在此处进行试验。
+    picky_eater("草莓");
 }
 
 // TODO: 阅读这些测试用例，试着理解它们在干什么。
