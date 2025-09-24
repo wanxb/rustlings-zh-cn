@@ -13,10 +13,12 @@ mod tests {
     // TODO: 引入 `is_even`。
     // 你可以使用通配符来引入外部模块中的所有内容。
 
+    use crate::is_even;
+
     #[test]
     fn you_can_assert() {
         // TODO: 使用一些值来测试函数 `is_even`。
-        assert!();
-        assert!();
+        assert!(is_even(4));
+        assert!(!is_even(3));
     }
 }
