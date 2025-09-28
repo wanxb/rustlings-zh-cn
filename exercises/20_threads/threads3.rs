@@ -15,12 +15,14 @@ impl Queue {
 }
 
 fn send_tx(q: Queue, tx: mpsc::Sender<u32>) {
-    // TODO: 我们想要将 `tx` 发送给两个线程。但目前，它已经被移动到了第一个线程中。
-    // 你要如何解决这个问题呢？
+    // 我们需要为每个线程克隆一个 Sender，这样它们都可以发送消息。
+    let tx1 = tx.clone();
+    let tx2 = tx;
+
     thread::spawn(move || {
         for val in q.first_half {
             println!("Sending {val:?}");
-            tx.send(val).unwrap();
+            tx1.send(val).unwrap();
             thread::sleep(Duration::from_millis(250));
         }
     });
@@ -28,7 +30,7 @@ fn send_tx(q: Queue, tx: mpsc::Sender<u32>) {
     thread::spawn(move || {
         for val in q.second_half {
             println!("Sending {val:?}");
-            tx.send(val).unwrap();
+            tx2.send(val).unwrap();
             thread::sleep(Duration::from_millis(250));
         }
     });

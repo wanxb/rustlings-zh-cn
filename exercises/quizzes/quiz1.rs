@@ -9,6 +9,12 @@
 
 // TODO: 编写一个函数，根据购买的苹果数量来计算总价。
 // fn calculate_price_of_apples(???) -> ??? { ??? }
+fn calculate_price_of_apples(num_apples: u32) -> u32 {
+    match num_apples {
+        0..=40 => num_apples * 2,
+        _ => num_apples,
+    }
+}
 fn main() {
     // (可选)你可以选择性地在此处进行试验。
 }

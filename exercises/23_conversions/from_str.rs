@@ -33,11 +33,28 @@ enum ParsePersonError {
 // 3. 将分割操作得到的第一个元素用作姓名。
 // 4. 如果姓名为空，返回错误 `ParsePersonError::NoName`。
 // 5. 将分割操作得到的第二个元素解析为 `u8` 类型作为年龄。
-// 6. 如果年龄解析失败，返回错误 `ParsePersonError::ParseInt`。 
+// 6. 如果年龄解析失败，返回错误 `ParsePersonError::ParseInt`。
 impl FromStr for Person {
     type Err = ParsePersonError;
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {}
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts: Vec<_> = s.split(',').collect();
+        if parts.len() != 2 {
+            return Err(ParsePersonError::BadLen);
+        }
+        let name = parts[0].trim();
+        if name.is_empty() {
+            return Err(ParsePersonError::NoName);
+        }
+        let age = parts[1]
+            .trim()
+            .parse::<u8>()
+            .map_err(ParsePersonError::ParseInt)?;
+        Ok(Person {
+            name: name.to_string(),
+            age,
+        })
+    }
 }
 
 fn main() {
